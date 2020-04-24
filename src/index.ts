@@ -13,15 +13,24 @@ import HelloResolver from './modules/hello.resolver';
 import { RegisterResolver } from "./modules/register.resolver";
 import { LoginResolver } from "./modules/login.resolver";
 import { MeResolver } from "./modules/me.resolver";
+import { ConfirmEmailResolver } from "./modules/confirmEmail.resolver";
+
 
 const RedisStore = connectRedis(session);
 
 const main = async () => {
 
+
   await createConnection();
 
   const schema = await buildSchema({
-    resolvers: [HelloResolver, MeResolver, RegisterResolver, LoginResolver],
+    resolvers: [
+      HelloResolver,
+      MeResolver,
+      RegisterResolver,
+      LoginResolver,
+      ConfirmEmailResolver
+    ],
     authChecker: (
       { context: { req } }
     ) => {
