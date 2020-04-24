@@ -27,11 +27,14 @@ export class User extends BaseEntity {
     @Column()
     password: string;
 
+    @Column("bool", {default: false})
+    @Field()
+    isConfirmedEmail: boolean;
 
     //custom properties
     @Field()
     name(@Root() parent: User): string{
         return `${parent.firstName} ${parent.lastName}`;
-    };
+    };    
 
 }
