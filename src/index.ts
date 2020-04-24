@@ -21,7 +21,13 @@ const main = async () => {
   await createConnection();
 
   const schema = await buildSchema({
-    resolvers: [HelloResolver,MeResolver, RegisterResolver,LoginResolver]
+    resolvers: [HelloResolver, MeResolver, RegisterResolver, LoginResolver],
+    authChecker: (
+      { context: { req } }
+    ) => {
+
+      return !!req.session!.userId;
+    }
   });
 
   const apolloServer = new ApolloServer({
