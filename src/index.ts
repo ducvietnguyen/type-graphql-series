@@ -18,7 +18,7 @@ const main = async () => {
 
   const schema = await buildSchema({
 
-     resolvers: [__dirname + '/modules/*.ts'],
+     resolvers: [__dirname + '/modules/*.resolver.ts'],
     authChecker: (
       { context: { req } }
     ) => {
