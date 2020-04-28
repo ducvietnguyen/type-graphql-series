@@ -1,0 +1,26 @@
+import { Resolver, Mutation, Arg } from "type-graphql";
+import { User } from '../entity/User';
+import { sendEmail } from "../utils/sendEmail";
+import { createChangrPasswordUrl } from "../utils/createChangePasswordUrl";
+
+
+@Resolver()
+export class ForgotPasswordResolver {
+
+  @Mutation(() => Boolean)
+  async forgotPassword(
+    @Arg('email') email: string): Promise<boolean> {
+
+    var user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return false;
+    }
+
+    await sendEmail(email, await createChangrPasswordUrl(user.id));
+    
+
+    return true;
+
+  }
+}
